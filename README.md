@@ -1,1 +1,1 @@
-Task 0 where am i ?
+This repo is for the 0x00. shell project
