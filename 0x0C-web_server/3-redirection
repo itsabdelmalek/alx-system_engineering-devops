@@ -18,7 +18,7 @@ printf %s "server {
      index       index.html index.htm;
 
      location /redirect_me {
-         return 301 http://malekzone.tech/;
+         return 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ/;
      }
 }
 " > /etc/nginx/sites-available/default
