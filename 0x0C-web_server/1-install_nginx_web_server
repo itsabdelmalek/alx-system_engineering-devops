@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
-# Bash script to install Nginx
+# Bash script to install and configure Nginx
 
 # Update package lists and install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
-# configure nginx and create index.html file
-ufw allow 'Nginx HTTP'
-sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
+# Create directory and index.html file
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+
+# Configure Nginx
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+}
+" > /etc/nginx/sites-available/default
 
 # Restart Nginx
-sudo service nginx restart
+service nginx restart
