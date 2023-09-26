@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
-# Bash script to configure Nginx for redirection
+# Bash script to install and configure Nginx
 
 # Update package lists and install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
 # Create directory and index.html file
-sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
 
-# add a location block for the redirection
-sudo bash -c 'cat <<EOL >> /etc/nginx/sites-available/default
+# Configure Nginx
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ;
-    }
-EOL'
+     location /redirect_me {
+         return 301 http://malekzone.tech/;
+     }
+}
+" > /etc/nginx/sites-available/default
 
 # Restart Nginx
-sudo service nginx restart
+service nginx restart
