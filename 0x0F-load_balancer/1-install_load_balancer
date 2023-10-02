@@ -5,20 +5,23 @@
 sudo apt-get update
 
 # Install HAProxy
-sudo apt-get install -y haproxy
+sudo apt-get install --no-install-recommends -y software-properties-common
+echo | sudo add-apt-repository ppa:vbernat/haproxy-2.8
+
+sudo apt-get install -y haproxy=2.8.\*
 
 # Configure HAProxy
-echo "frontend main
+
+haproxy_config="frontend main
     bind *:80
     default_backend webservers
 
 backend webservers
-    balance roundrobin
-    server 374232-web-01 34.232.72.195:80 check
-    server 374232-web-02 34.229.55.94:80 check" | sudo tee /etc/haproxy/haproxy.cfg
+    server 374232-web-01 34.232.72.195:80
+    server 374232-web-02 34.229.55.94:80"
 
 # Enable HAProxy init script
-sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+sudo sed -i '36r /dev/stdin' /etc/haproxy/haprox.cfg <<< "$haproxy_config"
 
 # Restart HAProxy service
-sudo systemctl restart haproxy
+sudo service haproxy restart
