@@ -22,7 +22,7 @@ server {
     }
 
     location / {
-        add_header X-Served-By $host;
+        add_header X-Served-By "$HOSTNAME";
         return 200 'Hello World!';
     }
 }",
