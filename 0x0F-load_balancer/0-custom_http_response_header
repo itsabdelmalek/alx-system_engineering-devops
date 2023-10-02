@@ -1,12 +1,37 @@
 #!/usr/bin/env bash
-# This script configures Nginx on web-01 and web-02 to add a custom HTTP response header
+# Bash script to install and configure Nginx to add a custop http response
 
-# Install Nginx if not already installed
-sudo apt-get update
-sudo apt-get install -y nginx
+# Update package lists and install Nginx
+apt-get update
+apt-get install -y nginx
 
-# Create a custom Nginx configuration file
-echo "add_header X-Served-By $(hostname);" | sudo tee /etc/nginx/conf.d/custom_response_header.conf
+# Create directory and index.html file
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
 
-# Reload Nginx to apply changes
-sudo systemctl reload nginx
+# Create a custom 404 page
+echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+
+# Configure Nginx
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     add_header X-Served-By "$(HOSTNAME)";
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+
+     location /redirect_me {
+         return 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ/;
+     }
+
+     error_page 404 /404.html;
+
+     location = /404.html {
+         root /etc/nginx/html;
+     }
+}
+" > /etc/nginx/sites-available/default
+
+# Restart Nginx
+service nginx restart
