@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 # Create a custom Nginx configuration file
-echo "add_header X-Served-By $hostname;" | sudo tee /etc/nginx/conf.d/custom_response_header.conf
+echo "add_header X-Served-By $(hostname);" | sudo tee /etc/nginx/conf.d/custom_response_header.conf
 
 # Reload Nginx to apply changes
 sudo systemctl reload nginx
