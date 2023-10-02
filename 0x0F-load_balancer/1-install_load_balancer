@@ -14,8 +14,8 @@ echo "frontend main
 
 backend webservers
     balance roundrobin
-    server web-01 [374232]-web-01:80 check
-    server web-02 [374232]-web-02:80 check" | sudo tee /etc/haproxy/haproxy.cfg
+    server 374232-web-01 34.232.72.195:80 check
+    server 374232-web-02 34.229.55.94:80 check" | sudo tee /etc/haproxy/haproxy.cfg
 
 # Enable HAProxy init script
 sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
