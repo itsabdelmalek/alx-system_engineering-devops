@@ -1,7 +1,6 @@
 Outage Postmortem: Cloud Storage Service
 
 Issue Summary:
-
     Duration: 2 hours, from 9:00 AM to 11:00 AM (UTC)
     Impact: Cloud storage service experienced intermittent availability, affecting 50% of our users. File uploads and downloads were significantly delayed.
     Root Cause: Network congestion and misconfigured load balancer.
@@ -29,4 +28,8 @@ Corrective and Preventative Measures:
     Develop a protocol for rapid response and escalation in case of network-related issues.
 
 let's acknowledge that even the most advanced tech can sometimes suffer from a case of the Mondays! 😅
+
+Pretty Diagram:
+[Diagram depicting network traffic distribution before and after load balancer adjustment]
+
 By implementing these measures, we aim to enhance the reliability and performance of our cloud storage service, ensuring that our users can seamlessly upload and access their files without interruption. Keep on storing, cloud enthusiasts!
