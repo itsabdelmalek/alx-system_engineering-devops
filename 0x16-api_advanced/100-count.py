@@ -9,15 +9,6 @@ import requests
 def count_words(subreddit, word_list, wo_count=None, after=None):
     """
     Queries Reddit API, parses titles, and counts keywords.
-
-    Args:
-        subreddit (str): The name of the subreddit.
-        word_list (list): List of keywords to count.
-        count_dict (dict, optional): Dictionary to store counts. Defaults to
-        after (str, optional): A token for pagination. Defaults to "".
-
-    Returns:
-        dict: Dictionary containing counts of keywords.
     """
     if wo_count is None:
         wo_count = {}
